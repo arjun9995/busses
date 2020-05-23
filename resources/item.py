@@ -31,7 +31,8 @@ class Item(Resource):
         if item is None:
             item = ItemModel(name, **data)
         else:
-            item.price = data['price']
+            item.time = data['time']
+            item.plate = data['plate']
 
         item.save_to_db()
 
