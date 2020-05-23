@@ -15,34 +15,13 @@ class Item(Resource):
         help="Every item needs a store id."
     )
 
-    @jwt_required()
+    #@jwt_required()
     def get(self, name):
-        item = ItemModel.find_by_name(name)
+        item = [x.json() for x in ItemModel.query.all()]
         if item:
-            return item.json()
+            return {'items':item}
         return {'message': 'Item not found'}, 404
-
-    def post(self, name):
-        if ItemModel.find_by_name(name):
-            return {'message': "An item with name '{}' already exists.".format(name)}, 400
-
-        data = Item.parser.parse_args()
-
-        item = ItemModel(name, **data)
-
-        try:
-            item.save_to_db()
-        except:
-            return {"message": "An error occurred inserting the item."}, 500
-
-        return item.json(), 201
-
-    def delete(self, name):
-        item = ItemModel.find_by_name(name)
-        if item:
-            item.delete_from_db()
-
-        return {'message': 'Item deleted'}
+# return cls.query.filter_by(name=name).first()
 
     def put(self, name):
         data = Item.parser.parse_args()
@@ -57,8 +36,3 @@ class Item(Resource):
         item.save_to_db()
 
         return item.json()
-
-
-class ItemList(Resource):
-    def get(self):
-        return {'items': [x.json() for x in ItemModel.query.all()]}
