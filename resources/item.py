@@ -5,12 +5,12 @@ from models.item import ItemModel
 class Item(Resource):
     parser = reqparse.RequestParser()
     parser.add_argument('time',
-        type=String,
+        #type=String,
         required=True,
         help="This field cannot be left blank!"
     )
     parser.add_argument('plate',
-        type=String,
+        #type=String,
         required=True,
         help="This field cannot be left blank!"
     )
