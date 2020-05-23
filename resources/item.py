@@ -4,15 +4,15 @@ from models.item import ItemModel
 
 class Item(Resource):
     parser = reqparse.RequestParser()
-    parser.add_argument('price',
-        type=float,
+    parser.add_argument('time',
+        type=String,
         required=True,
         help="This field cannot be left blank!"
     )
-    parser.add_argument('store_id',
-        type=int,
+    parser.add_argument('plate',
+        type=String,
         required=True,
-        help="Every item needs a store id."
+        help="This field cannot be left blank!"
     )
 
     #@jwt_required()
