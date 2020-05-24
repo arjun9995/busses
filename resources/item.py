@@ -17,7 +17,7 @@ class Item(Resource):
 
     #@jwt_required()
     def get(self, name):
-        item = [x.json() for x in ItemModel.query.all()]
+        item = [x.json() for x in ItemModel.query.filter_by(name=name).all()]
         if item:
             return {'items':item}
         return {'message': 'Item not found'}, 404
